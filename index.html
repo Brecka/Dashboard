@@ -3,378 +3,368 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Home Screen</title>
+  <title>Dashboard</title>
   <style>
     :root{
-      --bg1:#07121f;      /* deep navy */
-      --bg2:#0b1f3a;      /* navy */
-      --card:rgba(255,255,255,.08);
-      --card2:rgba(255,255,255,.12);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.72);
-      --soft:rgba(255,255,255,.55);
-      --border:rgba(255,255,255,.14);
-      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --bg1:#0b1f3a;
+      --bg2:#07121f;
+      --bg3:#112a4a;
+      --card: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.55);
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
       --radius: 22px;
     }
-    *{box-sizing:border-box}
+
+    /* Premium animated background */
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
-      background: radial-gradient(1200px 700px at 10% 10%, rgba(255,255,255,.10), transparent 55%),
-                  radial-gradient(900px 600px at 90% 20%, rgba(120,160,255,.10), transparent 60%),
-                  linear-gradient(160deg, var(--bg1), var(--bg2));
+      background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+      background-size: 400% 400%;
+      animation: gradientMove 20s ease infinite;
       min-height:100vh;
       display:flex;
       padding:18px;
+      box-sizing:border-box;
     }
+    @keyframes gradientMove{
+      0%{ background-position: 0% 50%; }
+      50%{ background-position: 100% 50%; }
+      100%{ background-position: 0% 50%; }
+    }
+
     .wrap{
-      width:100%;
-      max-width:1100px;
-      margin:auto;
+      width: min(1200px, 100%);
+      margin: 0 auto;
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:16px;
-      align-items:stretch;
+      grid-template-columns: 1.25fr .9fr;
+      gap: 18px;
+      align-items:start;
     }
-    @media (max-width: 900px){
-      .wrap{grid-template-columns:1fr}
-    }
+
     .card{
-      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.04));
-      border:1px solid var(--border);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding:18px;
-      overflow:hidden;
-      position:relative;
+      padding: 18px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
-    .topbar{
+
+    .top{
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
-      gap:12px;
+      gap: 14px;
     }
-    .time{
-      font-size:54px;
-      letter-spacing:-1px;
-      line-height:1;
-      margin:0;
+
+    .timeBlock .time{
+      font-size: clamp(42px, 7vw, 64px);
+      font-weight: 750;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 40px rgba(255,255,255,.15);
     }
-    .date{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:16px;
+    .timeBlock .date{
+      margin-top: 6px;
+      font-size: 16px;
+      color: var(--muted);
     }
-    .mode{
-      padding:8px 12px;
-      border-radius:999px;
+
+    .pill{
       border:1px solid var(--border);
-      background: rgba(255,255,255,.06);
-      color:var(--muted);
-      font-size:13px;
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+      font-size: 13px;
       white-space:nowrap;
+      align-self:flex-start;
     }
+
     .hero{
-      margin-top:18px;
-      padding:18px;
-      border-radius: calc(var(--radius) - 6px);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.10);
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.14);
     }
-    .headline{
-      font-size:20px;
-      color:var(--muted);
-      margin:0 0 8px 0;
+    .hero .small{
+      color: var(--muted2);
+      font-size: 13px;
+      letter-spacing: .01em;
     }
-    .mantra{
-      font-size:30px;
-      line-height:1.2;
-      margin:0;
-      letter-spacing:-.2px;
+    .hero h1{
+      margin: 6px 0 6px;
+      font-size: 30px;
+      line-height:1.15;
+      letter-spacing: -0.01em;
     }
-    .subline{
-      margin-top:12px;
-      color:var(--soft);
-      font-size:14px;
+    .hero .sub{
+      color: var(--muted);
+      margin: 0 0 14px;
+      font-size: 14px;
     }
-    .actions{
+
+    .btnRow{
       display:flex;
-      gap:10px;
       flex-wrap:wrap;
-      margin-top:14px;
+      gap:10px;
     }
-    button, a.btn{
+    button{
       appearance:none;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.08);
-      color:var(--text);
-      padding:10px 14px;
+      border:1px solid var(--border);
       border-radius: 14px;
-      font-size:14px;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      transition: transform .08s ease, background .2s ease;
-    }
-    button:hover, a.btn:hover{ background: rgba(255,255,255,.12); }
-    button:active, a.btn:active{ transform: translateY(1px); }
-    .mini{
-      color:var(--muted);
-      font-size:13px;
-      margin-top:14px;
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .right .section-title{
-      margin:0 0 10px 0;
-      color:var(--muted);
-      font-size:14px;
-      letter-spacing:.2px;
-      text-transform:uppercase;
-    }
-    .tile{
-      padding:14px;
-      border-radius: 18px;
       background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      margin-bottom:12px;
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 14px;
+      cursor:pointer;
     }
-    .tile h3{
-      margin:0 0 8px 0;
-      font-size:16px;
-      color:var(--text);
-    }
-    .tile p{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.35;
+    button:hover{ background: rgba(255,255,255,.10); }
+
+    .embed{
+      margin-top: 14px;
+      border-radius: var(--radius);
+      overflow:hidden;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.18);
     }
     iframe{
       width:100%;
+      height: 360px;
       border:0;
-      border-radius: 16px;
-      background: rgba(0,0,0,.2);
+      display:block;
     }
-    .embed{
-      margin-top:12px;
+
+    .footerLine{
+      margin-top: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      color: var(--muted2);
+      font-size: 12px;
     }
-    .footerhint{
-      margin-top:10px;
-      color: rgba(255,255,255,.45);
-      font-size:12px;
+
+    .side h2{
+      margin: 0 0 12px;
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .tile{
+      padding: 14px;
+      border-radius: var(--radius);
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      margin-bottom: 12px;
+    }
+    .tile .h{
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+    .tile .p{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      white-space: pre-line;
+    }
+
+    @media (max-width: 900px){
+      .wrap{ grid-template-columns: 1fr; }
+      iframe{ height: 300px; }
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="card left">
-      <div class="topbar">
-        <div>
-          <h1 class="time" id="time">--:--</h1>
+    <!-- LEFT -->
+    <div class="card">
+      <div class="top">
+        <div class="timeBlock">
+          <div class="time" id="time">--:--</div>
           <div class="date" id="date">---</div>
         </div>
-        <div class="mode" id="modePill">Mode</div>
+        <div class="pill" id="modePill">Evening Mode</div>
       </div>
 
       <div class="hero">
-        <p class="headline" id="headline">—</p>
-        <p class="mantra" id="mainText">—</p>
-        <div class="subline" id="subline">—</div>
+        <div class="small" id="greeting">Welcome home.</div>
+        <h1 id="headline">What needs to be released?</h1>
+        <div class="sub" id="subhead">Decompress. Reset. Soft landing.</div>
 
-        <div class="actions">
-          <a class="btn" id="primaryBtn" href="#" target="_blank" rel="noopener">Open</a>
+        <div class="btnRow">
+          <button id="playBtn">Play unwind</button>
           <button id="shuffleBtn">Shuffle</button>
           <button id="toggleBtn">Toggle Morning/Evening</button>
         </div>
       </div>
 
-      <div class="embed" id="embedWrap"></div>
-
-      <div class="mini">
-        <div id="focusLine">Focus: —</div>
-        <div id="noteLine">—</div>
+      <div class="embed">
+        <!-- Replace with your own Spotify embed if you want -->
+        <iframe id="spotifyFrame"
+          src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"></iframe>
       </div>
 
-      <div class="footerhint">
-        Tip: edit the content objects in this file (mantras, reflections, links). No backend needed.
+      <div class="footerLine">
+        <div id="focusLine">Focus: soft and steady</div>
+        <div id="affirmLine">You’re allowed to rest.</div>
       </div>
     </div>
 
-    <div class="card right">
-      <div class="section-title">Quick Tiles</div>
+    <!-- RIGHT -->
+    <div class="card side">
+      <h2>Quick tiles</h2>
 
-      <div class="tile" id="tile1">
-        <h3 id="tile1h">—</h3>
-        <p id="tile1p">—</p>
+      <div class="tile">
+        <div class="h" id="tile1h">Unwind</div>
+        <div class="p" id="tile1p">Music on. Lights low. Phone down.</div>
       </div>
 
-      <div class="tile" id="tile2">
-        <h3 id="tile2h">—</h3>
-        <p id="tile2p">—</p>
+      <div class="tile">
+        <div class="h" id="tile2h">Body</div>
+        <div class="p" id="tile2p">5–10 min stretch. Then relax.</div>
       </div>
 
-      <div class="tile" id="tile3">
-        <h3 id="tile3h">—</h3>
-        <p id="tile3p">—</p>
+      <div class="tile">
+        <div class="h" id="tile3h">Tomorrow</div>
+        <div class="p" id="tile3p">Set clothes + first task.</div>
       </div>
     </div>
   </div>
 
-<script>
-  // ====== EDIT THESE ======
-  const content = {
-    morning: {
-      headline: "Good morning.",
-      mantras: [
-        "Move slow. Start clean. Finish strong.",
-        "Calm is power.",
-        "I choose clarity over chaos.",
-        "I do the next right thing."
-      ],
-      subline: "Breathe first. Then begin.",
-      primary: { label: "Start meditation", url: "https://www.youtube.com/results?search_query=10+minute+guided+meditation" },
-      embed: { type: "youtube", id: "inpok4MKVLM" }, // 10-min meditation example
-      tiles: [
-        { h: "Today’s tone", p: "Calm + focused. One priority." },
-        { h: "Movement", p: "Short workout > perfect workout." },
-        { h: "Logistics", p: "Check weather + commute only once." }
-      ],
-      focus: "One thing that makes everything easier",
-      note: "Keep it light. Keep it moving."
-    },
-    evening: {
-      headline: "Welcome home.",
-      reflections: [
-        "What went well today?",
-        "What needs to be released?",
-        "What do you want tomorrow to feel like?",
-        "Name one win—small counts."
-      ],
-      subline: "Decompress. Reset. Soft landing.",
-      primary: { label: "Play unwind", url: "https://open.spotify.com/search/lofi%20unwind" },
-      embed: { type: "spotify", url: "https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO" }, // replace with your playlist
-      tiles: [
-        { h: "Unwind", p: "Music on. Lights low. Phone down." },
-        { h: "Body", p: "5–10 min stretch. Then relax." },
-        { h: "Tomorrow", p: "Set clothes + first task." }
-      ],
-      focus: "Soft and steady",
-      note: "You’re allowed to rest."
-    }
-  };
+  <script>
+    // ---- CONTENT YOU CAN EDIT ----
+    const CONTENT = {
+      morning: {
+        pill: "Morning Mode",
+        greeting: "Good morning.",
+        headline: "What matters most today?",
+        subhead: "Calm start. Clear mind. One win.",
+        focus: "Focus: steady and clean",
+        affirm: "You’re in control of the pace.",
+        tiles: [
+          { h: "Weather", p: "Loading…" }, // we overwrite with live weather
+          { h: "Today", p: "" },          // we overwrite with today’s date
+          { h: "First move", p: "Water → 2 min breathe → start." }
+        ]
+      },
+      evening: {
+        pill: "Evening Mode",
+        greeting: "Welcome home.",
+        headline: "What needs to be released?",
+        subhead: "Decompress. Reset. Soft landing.",
+        focus: "Focus: soft and steady",
+        affirm: "You’re allowed to rest.",
+        tiles: [
+          { h: "Weather", p: "Loading…" }, // live weather
+          { h: "Today", p: "" },           // today’s date
+          { h: "Tomorrow", p: "Set clothes + first task." }
+        ]
+      }
+    };
 
-  // ====== LOGIC ======
-  let manualMode = null; // "morning" | "evening" | null
+    // ---- STATE ----
+    let mode = localStorage.getItem("mode") || "evening";
 
-  function isMorningByTime(d){
-    const h = d.getHours();
-    return h >= 5 && h < 12;
-  }
+    // ---- DOM ----
+    const el = (id) => document.getElementById(id);
 
-  function pick(arr){
-    return arr[Math.floor(Math.random()*arr.length)];
-  }
+    function setMode(nextMode){
+      mode = nextMode;
+      localStorage.setItem("mode", mode);
 
-  function setEmbed(mode){
-    const wrap = document.getElementById("embedWrap");
-    wrap.innerHTML = "";
-    const cfg = content[mode].embed;
+      const m = CONTENT[mode];
+      el("modePill").textContent = m.pill;
+      el("greeting").textContent = m.greeting;
+      el("headline").textContent = m.headline;
+      el("subhead").textContent = m.subhead;
+      el("focusLine").textContent = m.focus;
+      el("affirmLine").textContent = m.affirm;
 
-    if (cfg.type === "youtube"){
-      const iframe = document.createElement("iframe");
-      iframe.height = "360";
-      iframe.src = `https://www.youtube.com/embed/${cfg.id}?rel=0`;
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      iframe.allowFullscreen = true;
-      wrap.appendChild(iframe);
-    } else if (cfg.type === "spotify"){
-      const iframe = document.createElement("iframe");
-      iframe.height = "380";
-      iframe.src = cfg.url;
-      iframe.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
-      wrap.appendChild(iframe);
-    }
-  }
+      el("tile1h").textContent = m.tiles[0].h;
+      el("tile1p").textContent = m.tiles[0].p;
 
-  function render(mode){
-    const now = new Date();
-    document.getElementById("modePill").textContent = mode === "morning" ? "Morning Mode" : "Evening Mode";
+      el("tile2h").textContent = m.tiles[1].h;
+      el("tile2p").textContent = m.tiles[1].p;
 
-    const headline = document.getElementById("headline");
-    const mainText = document.getElementById("mainText");
-    const subline = document.getElementById("subline");
-    const primaryBtn = document.getElementById("primaryBtn");
+      el("tile3h").textContent = m.tiles[2].h;
+      el("tile3p").textContent = m.tiles[2].p;
 
-    headline.textContent = content[mode].headline;
-
-    if (mode === "morning"){
-      mainText.textContent = pick(content.morning.mantras);
-      subline.textContent = content.morning.subline;
-      primaryBtn.textContent = content.morning.primary.label;
-      primaryBtn.href = content.morning.primary.url;
-    } else {
-      mainText.textContent = pick(content.evening.reflections);
-      subline.textContent = content.evening.subline;
-      primaryBtn.textContent = content.evening.primary.label;
-      primaryBtn.href = content.evening.primary.url;
+      // Always set tile2 date text
+      el("tile2p").textContent = new Date().toLocaleDateString(undefined, {
+        weekday: "long", month: "long", day: "numeric"
+      });
     }
 
-    setEmbed(mode);
-
-    // tiles
-    const tiles = content[mode].tiles;
-    document.getElementById("tile1h").textContent = tiles[0].h;
-    document.getElementById("tile1p").textContent = tiles[0].p;
-    document.getElementById("tile2h").textContent = tiles[1].h;
-    document.getElementById("tile2p").textContent = tiles[1].p;
-    document.getElementById("tile3h").textContent = tiles[2].h;
-    document.getElementById("tile3p").textContent = tiles[2].p;
-
-    document.getElementById("focusLine").textContent = "Focus: " + content[mode].focus;
-    document.getElementById("noteLine").textContent = content[mode].note;
-  }
-
-  function tick(){
-    const now = new Date();
-    const h = now.getHours();
-    const m = now.getMinutes();
-    const hh = ((h + 11) % 12) + 1;
-    const mm = String(m).padStart(2, "0");
-    const ampm = h >= 12 ? "PM" : "AM";
-    document.getElementById("time").textContent = `${hh}:${mm} ${ampm}`;
-
-    const opts = { weekday:"long", month:"long", day:"numeric" };
-    document.getElementById("date").textContent = now.toLocaleDateString(undefined, opts);
-
-    const mode = manualMode || (isMorningByTime(now) ? "morning" : "evening");
-    return mode;
-  }
-
-  let currentMode = tick();
-  render(currentMode);
-
-  setInterval(() => {
-    const mode = tick();
-    if (mode !== currentMode){
-      currentMode = mode;
-      render(currentMode);
+    function tickClock(){
+      const now = new Date();
+      el("time").textContent = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      el("date").textContent = now.toLocaleDateString(undefined, { weekday:"long", month:"long", day:"numeric" });
     }
-  }, 1000);
 
-  document.getElementById("shuffleBtn").onclick = () => render(currentMode);
+    async function loadWeather(lat, lon){
+      try{
+        const res = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
+        );
+        const data = await res.json();
+        const w = data.current_weather;
+        if (!w) return;
+        el("tile1h").textContent = "Weather";
+        el("tile1p").textContent = `${w.temperature}°C • Wind ${w.windspeed} km/h`;
+      } catch(e){
+        // leave as-is
+      }
+    }
 
-  document.getElementById("toggleBtn").onclick = () => {
-    manualMode = (currentMode === "morning") ? "evening" : "morning";
-    currentMode = manualMode;
-    render(currentMode);
-  };
-</script>
+    function tryGeoWeather(){
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(
+        (pos) => loadWeather(pos.coords.latitude, pos.coords.longitude),
+        () => { /* ignore */ },
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 600000 }
+      );
+    }
+
+    // ---- BUTTONS ----
+    el("toggleBtn").addEventListener("click", () => {
+      setMode(mode === "evening" ? "morning" : "evening");
+      tryGeoWeather();
+    });
+
+    el("shuffleBtn").addEventListener("click", () => {
+      // simple shuffle: flip affirmation lines
+      const opts = [
+        "You don’t need to rush.",
+        "One thing at a time.",
+        "Clean and calm.",
+        "Soft landing. Safe body.",
+        "Do less, better."
+      ];
+      el("affirmLine").textContent = opts[Math.floor(Math.random() * opts.length)];
+    });
+
+    el("playBtn").addEventListener("click", () => {
+      // This doesn’t control Spotify directly (browser restrictions).
+      // It just scrolls the embed into view and “nudges” you to press play.
+      el("spotifyFrame").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    // ---- INIT ----
+    setMode(mode);
+    tickClock();
+    setInterval(tickClock, 1000 * 15);
+    tryGeoWeather();
+  </script>
 </body>
 </html>
