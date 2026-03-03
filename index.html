@@ -1,370 +1,307 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dashboard</title>
-  <style>
-    :root{
-      --bg1:#0b1f3a;
-      --bg2:#07121f;
-      --bg3:#112a4a;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --muted2: rgba(255,255,255,.55);
-      --shadow: 0 18px 60px rgba(0,0,0,.35);
-      --radius: 22px;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dashboard</title>
 
-    /* Premium animated background */
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color:var(--text);
-      background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
-      background-size: 400% 400%;
-      animation: gradientMove 20s ease infinite;
-      min-height:100vh;
-      display:flex;
-      padding:18px;
-      box-sizing:border-box;
-    }
-    @keyframes gradientMove{
-      0%{ background-position: 0% 50%; }
-      50%{ background-position: 100% 50%; }
-      100%{ background-position: 0% 50%; }
-    }
+<style>
+:root{
+  --bg1:#07121f;
+  --bg2:#0b1f3a;
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.70);
+  --muted2:rgba(255,255,255,.55);
+  --card:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.10);
+  --radius:22px;
+  --shadow:0 20px 60px rgba(0,0,0,.35);
+}
 
-    .wrap{
-      width: min(1200px, 100%);
-      margin: 0 auto;
-      display:grid;
-      grid-template-columns: 1.25fr .9fr;
-      gap: 18px;
-      align-items:start;
-    }
+/* Stable luxury radial glow */
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 600px at 15% 20%, rgba(255,255,255,.06), transparent 60%),
+    radial-gradient(700px 500px at 85% 25%, rgba(120,160,255,.08), transparent 60%),
+    linear-gradient(160deg,var(--bg1),var(--bg2));
+  min-height:100vh;
+  display:flex;
+  padding:18px;
+  box-sizing:border-box;
+}
 
-    .card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
+.wrap{
+  width:min(1200px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.25fr .9fr;
+  gap:18px;
+}
 
-    .top{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap: 14px;
-    }
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+}
 
-    .timeBlock .time{
-      font-size: clamp(42px, 7vw, 64px);
-      font-weight: 750;
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      text-shadow: 0 0 40px rgba(255,255,255,.15);
-    }
-    .timeBlock .date{
-      margin-top: 6px;
-      font-size: 16px;
-      color: var(--muted);
-    }
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
 
-    .pill{
-      border:1px solid var(--border);
-      border-radius: 999px;
-      padding: 10px 14px;
-      color: var(--muted);
-      background: rgba(255,255,255,.04);
-      font-size: 13px;
-      white-space:nowrap;
-      align-self:flex-start;
-    }
+.time{
+  font-size:60px;
+  font-weight:700;
+  letter-spacing:-1px;
+  text-shadow:0 0 40px rgba(255,255,255,.15);
+}
+.date{
+  margin-top:6px;
+  font-size:15px;
+  color:var(--muted);
+}
 
-    .hero{
-      margin-top: 14px;
-      padding: 18px;
-      border-radius: var(--radius);
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.14);
-    }
-    .hero .small{
-      color: var(--muted2);
-      font-size: 13px;
-      letter-spacing: .01em;
-    }
-    .hero h1{
-      margin: 6px 0 6px;
-      font-size: 30px;
-      line-height:1.15;
-      letter-spacing: -0.01em;
-    }
-    .hero .sub{
-      color: var(--muted);
-      margin: 0 0 14px;
-      font-size: 14px;
-    }
+.pill{
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:13px;
+  color:var(--muted);
+  background:rgba(255,255,255,.04);
+}
 
-    .btnRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    button{
-      appearance:none;
-      border:1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      font-size: 14px;
-      cursor:pointer;
-    }
-    button:hover{ background: rgba(255,255,255,.10); }
+.hero{
+  margin-top:14px;
+  padding:18px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.15);
+}
 
-    .embed{
-      margin-top: 14px;
-      border-radius: var(--radius);
-      overflow:hidden;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.18);
-    }
-    iframe{
-      width:100%;
-      height: 360px;
-      border:0;
-      display:block;
-    }
+.hero small{
+  color:var(--muted2);
+}
 
-    .footerLine{
-      margin-top: 12px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      color: var(--muted2);
-      font-size: 12px;
-    }
+.hero h1{
+  margin:6px 0;
+  font-size:30px;
+  letter-spacing:-.3px;
+}
 
-    .side h2{
-      margin: 0 0 12px;
-      font-size: 13px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .tile{
-      padding: 14px;
-      border-radius: var(--radius);
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.04);
-      margin-bottom: 12px;
-    }
-    .tile .h{
-      font-weight: 650;
-      margin-bottom: 6px;
-    }
-    .tile .p{
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
-      white-space: pre-line;
-    }
+.hero p{
+  margin:0 0 14px;
+  color:var(--muted);
+  font-size:14px;
+}
 
-    @media (max-width: 900px){
-      .wrap{ grid-template-columns: 1fr; }
-      iframe{ height: 300px; }
-    }
-  </style>
+.btnRow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+button{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+button:hover{
+  background:rgba(255,255,255,.10);
+}
+
+.embed{
+  margin-top:14px;
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+
+iframe{
+  width:100%;
+  height:360px;
+  border:0;
+}
+
+.footer{
+  margin-top:12px;
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--muted2);
+}
+
+.side h2{
+  margin:0 0 12px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:var(--muted);
+}
+
+.tile{
+  padding:14px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
+  margin-bottom:12px;
+}
+
+.tile .h{
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.tile .p{
+  font-size:13px;
+  color:var(--muted);
+}
+
+@media(max-width:900px){
+  .wrap{grid-template-columns:1fr;}
+  iframe{height:300px;}
+}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <!-- LEFT -->
-    <div class="card">
-      <div class="top">
-        <div class="timeBlock">
-          <div class="time" id="time">--:--</div>
-          <div class="date" id="date">---</div>
-        </div>
-        <div class="pill" id="modePill">Evening Mode</div>
-      </div>
+<div class="wrap">
 
-      <div class="hero">
-        <div class="small" id="greeting">Welcome home.</div>
-        <h1 id="headline">What needs to be released?</h1>
-        <div class="sub" id="subhead">Decompress. Reset. Soft landing.</div>
-
-        <div class="btnRow">
-          <button id="playBtn">Play unwind</button>
-          <button id="shuffleBtn">Shuffle</button>
-          <button id="toggleBtn">Toggle Morning/Evening</button>
-        </div>
-      </div>
-
-      <div class="embed">
-        <!-- Replace with your own Spotify embed if you want -->
-        <iframe id="spotifyFrame"
-          src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"></iframe>
-      </div>
-
-      <div class="footerLine">
-        <div id="focusLine">Focus: soft and steady</div>
-        <div id="affirmLine">You’re allowed to rest.</div>
-      </div>
+<!-- LEFT -->
+<div class="card">
+  <div class="top">
+    <div>
+      <div class="time" id="time"></div>
+      <div class="date" id="date"></div>
     </div>
+    <div class="pill" id="mode">Evening Mode</div>
+  </div>
 
-    <!-- RIGHT -->
-    <div class="card side">
-      <h2>Quick tiles</h2>
+  <div class="hero">
+    <small id="greeting">Welcome home.</small>
+    <h1 id="headline">What needs to be released?</h1>
+    <p id="sub">Decompress. Reset. Soft landing.</p>
 
-      <div class="tile">
-        <div class="h" id="tile1h">Unwind</div>
-        <div class="p" id="tile1p">Music on. Lights low. Phone down.</div>
-      </div>
-
-      <div class="tile">
-        <div class="h" id="tile2h">Body</div>
-        <div class="p" id="tile2p">5–10 min stretch. Then relax.</div>
-      </div>
-
-      <div class="tile">
-        <div class="h" id="tile3h">Tomorrow</div>
-        <div class="p" id="tile3p">Set clothes + first task.</div>
-      </div>
+    <div class="btnRow">
+      <button id="toggle">Toggle Mode</button>
+      <button id="shuffle">Shuffle Reflection</button>
     </div>
   </div>
 
-  <script>
-    // ---- CONTENT YOU CAN EDIT ----
-    const CONTENT = {
-      morning: {
-        pill: "Morning Mode",
-        greeting: "Good morning.",
-        headline: "What matters most today?",
-        subhead: "Calm start. Clear mind. One win.",
-        focus: "Focus: steady and clean",
-        affirm: "You’re in control of the pace.",
-        tiles: [
-          { h: "Weather", p: "Loading…" }, // we overwrite with live weather
-          { h: "Today", p: "" },          // we overwrite with today’s date
-          { h: "First move", p: "Water → 2 min breathe → start." }
-        ]
-      },
-      evening: {
-        pill: "Evening Mode",
-        greeting: "Welcome home.",
-        headline: "What needs to be released?",
-        subhead: "Decompress. Reset. Soft landing.",
-        focus: "Focus: soft and steady",
-        affirm: "You’re allowed to rest.",
-        tiles: [
-          { h: "Weather", p: "Loading…" }, // live weather
-          { h: "Today", p: "" },           // today’s date
-          { h: "Tomorrow", p: "Set clothes + first task." }
-        ]
-      }
-    };
+  <div class="embed">
+    <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
+  </div>
 
-    // ---- STATE ----
-    let mode = localStorage.getItem("mode") || "evening";
+  <div class="footer">
+    <div id="focus">Focus: soft and steady</div>
+    <div id="affirm">You’re allowed to rest.</div>
+  </div>
+</div>
 
-    // ---- DOM ----
-    const el = (id) => document.getElementById(id);
+<!-- RIGHT -->
+<div class="card side">
+  <h2>Quick Tiles</h2>
 
-    function setMode(nextMode){
-      mode = nextMode;
-      localStorage.setItem("mode", mode);
+  <div class="tile">
+    <div class="h" id="weatherH">Weather</div>
+    <div class="p" id="weatherP">Loading…</div>
+  </div>
 
-      const m = CONTENT[mode];
-      el("modePill").textContent = m.pill;
-      el("greeting").textContent = m.greeting;
-      el("headline").textContent = m.headline;
-      el("subhead").textContent = m.subhead;
-      el("focusLine").textContent = m.focus;
-      el("affirmLine").textContent = m.affirm;
+  <div class="tile">
+    <div class="h">Today</div>
+    <div class="p" id="todayP"></div>
+  </div>
 
-      el("tile1h").textContent = m.tiles[0].h;
-      el("tile1p").textContent = m.tiles[0].p;
+  <div class="tile">
+    <div class="h">Tomorrow</div>
+    <div class="p">Set clothes + first task.</div>
+  </div>
+</div>
 
-      el("tile2h").textContent = m.tiles[1].h;
-      el("tile2p").textContent = m.tiles[1].p;
+</div>
 
-      el("tile3h").textContent = m.tiles[2].h;
-      el("tile3p").textContent = m.tiles[2].p;
+<script>
+let mode = "evening";
 
-      // Always set tile2 date text
-      el("tile2p").textContent = new Date().toLocaleDateString(undefined, {
-        weekday: "long", month: "long", day: "numeric"
-      });
+function updateClock(){
+  const now = new Date();
+  document.getElementById("time").textContent =
+    now.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  document.getElementById("date").textContent =
+    now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+}
+setInterval(updateClock,1000);
+updateClock();
+
+document.getElementById("todayP").textContent =
+  new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+
+async function loadWeather(lat,lon){
+  try{
+    const r = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
+    );
+    const data = await r.json();
+    const w = data.current_weather;
+    if(w){
+      document.getElementById("weatherP").textContent =
+        `${w.temperature}°C • Wind ${w.windspeed} km/h`;
     }
+  }catch{}
+}
 
-    function tickClock(){
-      const now = new Date();
-      el("time").textContent = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-      el("date").textContent = now.toLocaleDateString(undefined, { weekday:"long", month:"long", day:"numeric" });
-    }
+if(navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(
+    pos=>loadWeather(pos.coords.latitude,pos.coords.longitude)
+  );
+}
 
-    async function loadWeather(lat, lon){
-      try{
-        const res = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
-        );
-        const data = await res.json();
-        const w = data.current_weather;
-        if (!w) return;
-        el("tile1h").textContent = "Weather";
-        el("tile1p").textContent = `${w.temperature}°C • Wind ${w.windspeed} km/h`;
-      } catch(e){
-        // leave as-is
-      }
-    }
+document.getElementById("toggle").onclick=()=>{
+  if(mode==="evening"){
+    mode="morning";
+    document.getElementById("mode").textContent="Morning Mode";
+    document.getElementById("greeting").textContent="Good morning.";
+    document.getElementById("headline").textContent="What matters most today?";
+    document.getElementById("sub").textContent="Calm start. Clear mind. One win.";
+    document.getElementById("focus").textContent="Focus: steady and clean";
+    document.getElementById("affirm").textContent="You’re in control of the pace.";
+  }else{
+    mode="evening";
+    document.getElementById("mode").textContent="Evening Mode";
+    document.getElementById("greeting").textContent="Welcome home.";
+    document.getElementById("headline").textContent="What needs to be released?";
+    document.getElementById("sub").textContent="Decompress. Reset. Soft landing.";
+    document.getElementById("focus").textContent="Focus: soft and steady";
+    document.getElementById("affirm").textContent="You’re allowed to rest.";
+  }
+};
 
-    function tryGeoWeather(){
-      if (!navigator.geolocation) return;
-      navigator.geolocation.getCurrentPosition(
-        (pos) => loadWeather(pos.coords.latitude, pos.coords.longitude),
-        () => { /* ignore */ },
-        { enableHighAccuracy: true, timeout: 8000, maximumAge: 600000 }
-      );
-    }
+document.getElementById("shuffle").onclick=()=>{
+  const lines=[
+    "One thing at a time.",
+    "You don’t need to rush.",
+    "Clean and calm.",
+    "Soft landing.",
+    "Do less, better."
+  ];
+  document.getElementById("affirm").textContent=
+    lines[Math.floor(Math.random()*lines.length)];
+};
+</script>
 
-    // ---- BUTTONS ----
-    el("toggleBtn").addEventListener("click", () => {
-      setMode(mode === "evening" ? "morning" : "evening");
-      tryGeoWeather();
-    });
-
-    el("shuffleBtn").addEventListener("click", () => {
-      // simple shuffle: flip affirmation lines
-      const opts = [
-        "You don’t need to rush.",
-        "One thing at a time.",
-        "Clean and calm.",
-        "Soft landing. Safe body.",
-        "Do less, better."
-      ];
-      el("affirmLine").textContent = opts[Math.floor(Math.random() * opts.length)];
-    });
-
-    el("playBtn").addEventListener("click", () => {
-      // This doesn’t control Spotify directly (browser restrictions).
-      // It just scrolls the embed into view and “nudges” you to press play.
-      el("spotifyFrame").scrollIntoView({ behavior: "smooth", block: "center" });
-    });
-
-    // ---- INIT ----
-    setMode(mode);
-    tickClock();
-    setInterval(tickClock, 1000 * 15);
-    tryGeoWeather();
-  </script>
 </body>
 </html>
